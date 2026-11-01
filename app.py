@@ -13,6 +13,8 @@ import click
 from argon2 import PasswordHasher
 from argon2.exceptions import InvalidHashError, VerificationError
 from flask import Flask, g, jsonify, request, send_from_directory
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 BASE = Path(__file__).resolve().parent
 DB_PATH = Path(os.environ.get('DATABASE_PATH', str(BASE / 'rbac.sqlite3')))
@@ -21,6 +23,12 @@ SESSION_SECONDS = 8 * 60 * 60
 hasher = PasswordHasher()  # Argon2id, salted, parameterized
 
 app = Flask(__name__, static_folder=None)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    storage_uri="memory://"
+)
 app.config.update(
     MAX_CONTENT_LENGTH=8192,
     SESSION_COOKIE_SECURE=os.environ.get('COOKIE_SECURE', '0') == '1',
@@ -151,6 +159,9 @@ def index():
 def static_js():
     return send_from_directory(BASE / 'static', 'app.js')
 
+@app.get('/static/style.css')
+def static_css():
+    return send_from_directory(BASE / 'static', 'style.css')
 
 @app.get('/api/public')
 def public():
@@ -180,6 +191,7 @@ def register():
 
 
 @app.post('/api/login')
+@limiter.limit("5 per minute")
 def login():
     data = json_body()
     if data is None or not isinstance(data.get('username'), str) or not isinstance(data.get('password'), str):
