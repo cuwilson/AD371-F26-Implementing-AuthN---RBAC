@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RBAC Security Demo</title>
+<style>
+:root{font-family:system-ui,sans-serif;color-scheme:light;background:#f5f7fb;color:#162033}body{max-width:860px;margin:38px auto;padding:0 18px}h1{margin-bottom:5px}p{color:#526074}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.panel{border:1px solid #dbe0eb;border-radius:14px;padding:18px;background:white;box-shadow:0 4px 15px #16203308}label{display:block;margin-top:10px;font-size:14px}input{width:100%;box-sizing:border-box;padding:10px;margin-top:4px;border:1px solid #c4ccda;border-radius:7px}button{margin:12px 6px 0 0;background:#294ca6;color:white;border:0;border-radius:7px;padding:10px 13px;cursor:pointer}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#111a2b;color:#e5edff;padding:14px;border-radius:10px;min-height:80px}small{color:#526074}.wide{margin-top:16px}
+</style></head><body>
+<h1>Authentication & RBAC</h1><p>Server-enforced permissions · Argon2id · HttpOnly cookie sessions · SQLite</p>
+<main><section class="panel"><h2>Register / Login</h2><form id="auth"><label>Username<input id="username" autocomplete="username" required minlength="3" maxlength="32"></label><label>Password<input id="password" type="password" autocomplete="current-password" required minlength="12"></label><button type="button" id="register">Register User</button><button type="button" id="login">Login</button></form><small>Admin accounts are created using the trusted CLI only.</small></section>
+<section class="panel"><h2>Explore access</h2><button id="public">Public endpoint</button><button id="profile">Protected profile</button><button id="admin">Admin users</button><button id="logout">Logout</button><p id="status" role="status">Checking session…</p></section></main>
+<section class="panel wide"><h2>API response</h2><pre id="output" aria-live="polite">Select an action above.</pre></section>
+<script src="/static/app.js" defer></script></body></html>
