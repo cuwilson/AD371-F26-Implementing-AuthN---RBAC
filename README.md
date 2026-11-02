@@ -394,7 +394,7 @@ The application was tested locally and against the deployed Vercel environment.
 | Inspect local stored passwords | Argon2id hashes | Pass |
 | Six rapid login requests (local) | HTTP 429 on sixth attempt | Pass |
 | Inspect Admin API response | No password hashes exposed | Pass |
-| Inspect deployed Neon password hashes | Hashed storage confirmed | Pending |
+| Inspect deployed Neon password hashes | Hashed storage confirmed | Pass |
 
 ### Browser Console and Network Testing
 
